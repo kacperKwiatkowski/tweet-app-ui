@@ -1,0 +1,124 @@
+
+
+form {
+
+  width: 75%;
+
+  position: relative;
+  margin: 25px auto 25px auto;
+  padding: 15px;
+
+  color: #4C80D0;
+  background-color: #EBEDF1;
+
+  border-radius: 15px;
+}
+
+.formName{
+
+  width: 80%;
+  height: 20px;
+
+  text-align: center;
+
+  font-size: x-large;
+  font-weight: normal;
+
+  margin: 20px auto 20px auto;
+
+  display: flex;
+  justify-content: left;
+}
+
+input {
+  height: 30px;
+  width: 80%;
+  font-family: 'Josefin Sans', sans-serif;
+
+  font-size: large;
+  text-align: right;
+
+  display: flex;
+  justify-content: center;
+  color: #a6a6a6;
+  background-color: #EBEDF1;
+
+
+  border-right: none;
+  border-left: none;
+  border-top: none;
+
+  margin: 15px auto 15px auto;
+
+  &:hover{
+    color: #4D98F0;
+    border-bottom: #4D98F0 2px solid;
+
+
+    -webkit-transition : border 300ms ease-in-out;
+    -moz-transition : border 300ms ease-in-out;
+    -o-transition : border 300ms ease-in-out;
+    transition : border 300ms ease-in-out;
+  }
+
+  &:focus{
+    color: #4D98F0;
+    outline: none;
+  }
+
+  &:invalid {
+    color: darkred;
+    border-bottom: darkred 2px solid;
+
+  }
+}
+
+input::-webkit-input-placeholder {
+  text-align: right;
+}
+
+::-moz-placeholder {
+  text-align: right;
+}
+
+:-ms-input-placeholder {
+  /** notice that ie has only a single colon) */
+  text-align: right;
+}
+
+::-webkit-input-placeholder {
+  text-align: right;
+}
+
+::placeholder {
+  font-weight: normal;
+  font-size: small;
+  text-align: right;
+  margin-right: 100px;
+  padding-right: 100px;
+  font-family: 'Josefin Sans', sans-serif;
+
+}
+
+.formButtonsWrapper {
+  display: flex;
+  justify-content: right;
+
+  width: 80%;
+  margin: 15px auto 15px auto;
+  font-family: 'Josefin Sans', sans-serif;
+
+}
+
+.formButton {
+  width: 30%;
+  height: 2rem;
+  margin: 10px 0px 10px 10px;
+  background-color: #4C80D0;
+  border: none;
+  border-radius: 5px;
+  color: #EBEDF1;
+  font-weight: bold;
+  font-family: 'Josefin Sans', sans-serif;
+
+}

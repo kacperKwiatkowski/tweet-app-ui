@@ -1,14 +1,16 @@
-
+import './header-style.scss';
 
 const Header = () => {
 
     return(
         <header>
-            <ul>
-                <li>LOGIN</li>
-                <li>REGISTER</li>
-                <li>POST TWEET</li>
-            </ul>
+            <menu>
+                <div id="logo">TWEET</div>
+                <ul>
+                    <li>Login</li>
+                    <li>Register</li>
+                </ul>
+            </menu>
         </header>
     )
 }

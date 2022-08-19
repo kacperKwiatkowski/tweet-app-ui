@@ -1,11 +1,15 @@
-
+import '../form-style.scss'
 
 const NewTweet = () => {
 
-    return(
-        <header>
-            <form>NEW TWEET</form>ddd
-        </header>
+    return (
+        <div>
+            <form>
+                <div class="formName">NEW TWEET</div>
+                <label/>
+                <input/></form>
+
+        </div>
     )
 }
 
