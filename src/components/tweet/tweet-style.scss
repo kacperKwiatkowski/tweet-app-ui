@@ -1,0 +1,98 @@
+
+
+.tweet {
+
+  width: 20rem;
+
+  position: relative;
+  margin: 5px 15px 5px 15px;
+  padding: 10px;
+
+  color: #4C80D0;
+  background-color: #EBEDF1;
+
+  border-radius: 5px;
+
+  font-size: x-small;
+
+  &:nth-child(n+2) {
+    width: 16rem;
+
+    font-size: xx-small;
+    padding: 5px;
+
+  }
+
+  .tweetAvatar{
+    height: 30px;
+    width: 30px;
+
+    border-radius: 5px;
+  }
+
+  .userDetails{
+    margin: auto 0 auto 0;
+  }
+
+  .currentTime{
+    width: 35%;
+    text-align: right;
+  }
+
+  .tweetUserDetails {
+
+    display: flex;
+    justify-content: space-between;
+
+
+    margin: 10px;
+  }
+
+  .tweetFormWrapper {
+
+
+    display: flex;
+    justify-content: space-between;
+
+
+  }
+
+  .newTweetInput {
+
+    font-family: 'Josefin Sans', sans-serif;
+
+    font-size: small;
+    text-align: right;
+
+    color: #a6a6a6;
+    background-color: #EBEDF1;
+
+
+    border-right: none;
+    border-left: none;
+    border-top: none;
+
+    margin: 15px 0 15px 0;
+  }
+
+  .buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+  }
+
+  .replyButton {
+    width: 20%;
+    height: 1rem;
+    background-color: #4C80D0;
+    border: none;
+    border-radius: 5px;
+    color: #EBEDF1;
+    font-weight: normal;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: x-small;
+
+  }
+}
+
+

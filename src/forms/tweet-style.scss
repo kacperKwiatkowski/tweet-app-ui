@@ -1,0 +1,84 @@
+.newTweetAvatar{
+  height: 50px;
+  width: 50px;
+
+  border-radius: 5px;
+}
+
+.newTweetUserDetails {
+
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+
+  margin: 15px auto 15px auto;
+}
+
+.newTweetUserDetail{
+  margin: auto 0 auto 0;
+  text-align: right;
+
+}
+
+.newTweetFormWrapper {
+
+
+  width: 80%;
+
+  display: flex;
+  justify-content: space-between;
+
+
+  margin: 15px auto 15px auto;
+}
+
+.newTweetInput {
+
+  height: 30px;
+  font-family: 'Josefin Sans', sans-serif;
+
+  font-size: small;
+  text-align: right;
+
+  color: #a6a6a6;
+  background-color: #EBEDF1;
+
+
+  border-right: none;
+  border-left: none;
+  border-top: none;
+
+  margin: 15px 0 15px 0;
+
+  &:hover{
+    color: #4D98F0;
+    border-bottom: #4D98F0 2px solid;
+
+
+    -webkit-transition : border 300ms ease-in-out;
+    -moz-transition : border 300ms ease-in-out;
+    -o-transition : border 300ms ease-in-out;
+    transition : border 300ms ease-in-out;
+  }
+
+  &:focus{
+    color: #4D98F0;
+    outline: none;
+  }
+
+  &:invalid {
+    color: darkred;
+    border-bottom: darkred 2px solid;
+
+  }
+}
+
+.title{
+
+  width: 25%;
+}
+
+.message {
+
+  width: 65%;
+}

@@ -16,8 +16,8 @@ const Register = () => {
                 <input type="text" name="lastName" placeholder="Last name"/>
                 <input type="email" name="contactNumber" placeholder="Contact number"/>
                 <input type="text" name="avatar" placeholder="Avatar"/>
-                <input type="text" name="password" placeholder="Password"/>
-                <input type="text" name="passwordConfirm" placeholder="Confirm password"/>
+                <input type="password" name="password" placeholder="Password"/>
+                <input type="password" name="passwordConfirm" placeholder="Confirm password"/>
                 <div class="formButtonsWrapper">
 
                     <button className="formButton" type="reset">Reset</button>

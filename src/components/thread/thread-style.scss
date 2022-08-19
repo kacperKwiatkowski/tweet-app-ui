@@ -1,0 +1,22 @@
+.thread {
+
+  &:nth-of-type(odd) {
+    justify-content: right;
+    float: right;
+    margin-right: auto;
+
+    .tweet {
+      margin-right: auto;
+    }
+  }
+
+  &:nth-of-type(even) {
+    justify-content: left;
+    margin-left: auto;
+
+    .tweet {
+      margin-left: auto;
+    }
+  }
+
+}

@@ -44,7 +44,7 @@ const Login = () => {
             <form onSubmit={event => handleLoginSubmit(event)}>
                 <div class="formName">Login</div>
                 <input type="text" name="username" placeholder="Username"/>
-                <input type="text" name="password" placeholder="Password"/>
+                <input type="password" name="password" placeholder="Password"/>
                 <div className="formButtonsWrapper">
                     <button className="formButton" type="reset">Reset</button>
                     <button className="formButton" type="submit">Submit</button>

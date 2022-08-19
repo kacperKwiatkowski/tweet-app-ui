@@ -11,7 +11,7 @@ form {
   color: #4C80D0;
   background-color: #EBEDF1;
 
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
 .formName{
@@ -35,7 +35,7 @@ input {
   width: 80%;
   font-family: 'Josefin Sans', sans-serif;
 
-  font-size: large;
+  font-size: small;
   text-align: right;
 
   display: flex;
@@ -64,12 +64,6 @@ input {
   &:focus{
     color: #4D98F0;
     outline: none;
-  }
-
-  &:invalid {
-    color: darkred;
-    border-bottom: darkred 2px solid;
-
   }
 }
 
@@ -121,4 +115,9 @@ input::-webkit-input-placeholder {
   font-weight: bold;
   font-family: 'Josefin Sans', sans-serif;
 
+}
+
+:focus{
+  color: #4D98F0;
+  outline: none;
 }
