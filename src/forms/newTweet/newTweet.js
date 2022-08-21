@@ -1,18 +1,35 @@
 import '../tweet-style.scss'
 
 import React, {useEffect, useState} from 'react'
+import Axios from "axios";
+import "../../interceptors/authTokenProvider"
 
 const NewTweet = () => {
 
     const [date, setDate] = useState(new Date());
+    const [loggedUserData, setLoggedUserData] = useState({})
+
+    const fetchLoggedUser = () => {
+        Axios.get("http://localhost:8080/api/v.1.0/tweets/logged")
+            .then(response => {
+                if (response.status === 200) {
+                    setLoggedUserData(response.data)
+                }
+            }).catch(error => {
+            console.error(error)
+        })
+    }
 
     useEffect(() => {
-        const timer = setInterval(() => setDate(new Date()), 100000);
+        const timer = setInterval(() => setDate(new Date()), 1000);
         return function cleanup() {
             clearInterval(timer)
         }
-
     });
+
+    useEffect(() => {
+        fetchLoggedUser()
+    }, loggedUserData);
 
     return (
         <div>
@@ -20,8 +37,8 @@ const NewTweet = () => {
                 <div className="newTweetUserDetails">
                     <img className="newTweetAvatar"
                          src="https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg"></img>
-                    <div className="newTweetUserDetail">H4NN!BAL</div>
-                    <div className="newTweetUserDetail">Hannibal Barca</div>
+                    <div className="newTweetUserDetail">{loggedUserData.username}</div>
+                    <div className="newTweetUserDetail">{loggedUserData.firstName} {loggedUserData.lastName}</div>
                     <div
                         className="newTweetUserDetail currentTime">{date.toLocaleDateString()} {date.toLocaleTimeString()}</div>
                 </div>

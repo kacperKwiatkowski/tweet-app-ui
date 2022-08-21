@@ -14,7 +14,6 @@ const Wall = () => {
     )
 
     useEffect(() => {
-        console.log("EFFECT -> REFRESH")
         fetchWallContent()
     }, wall)
 
