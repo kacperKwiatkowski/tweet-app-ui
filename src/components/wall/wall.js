@@ -101,7 +101,9 @@ const Wall = () => {
         return (
             threads.map((value, index) => {
                     return (
-                            <Thread tweets={value.thread}/>
+                        <Thread
+                            tweets={value.thread}
+                        />
                     )
                 }
             )

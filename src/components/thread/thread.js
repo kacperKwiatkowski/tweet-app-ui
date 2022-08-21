@@ -14,6 +14,7 @@ const Thread = ({tweets}) => {
 
                 return (
                         <Tweet
+                            key="index"
                             tweet={value}
                             allowReply={allowReply}
                         />
