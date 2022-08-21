@@ -13,16 +13,6 @@ const Tweet = ({tweet, allowReply}) => {
         }
     });
 
-    function provideReplyButton() {
-        if (allowReply) {
-            return (
-                <div className="buttonWrapper">
-                    <button className="replyButton">Reply</button>
-                </div>
-            )
-        } else return null
-    }
-
     return (
         <div className="tweet">
             <div className="tweetUserDetails">
@@ -37,7 +27,6 @@ const Tweet = ({tweet, allowReply}) => {
                 <div className="userDetails">{tweet.title}</div>
                 <div className="userDetails">{tweet.message}</div>
             </div>
-            {provideReplyButton()}
         </div>
     )
 }
