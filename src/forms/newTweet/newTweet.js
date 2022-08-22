@@ -67,8 +67,7 @@ const NewTweet = () => {
             <form onSubmit={event => handleNewTweetSubmit(event)}>
                 <div className="newTweetUserDetails">Post a tweet</div>
                 <div className="newTweetUserDetails">
-                    <img className="newTweetAvatar"
-                         src="https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg"></img>
+                    <img className="newTweetAvatar" src={"data:image/png;base64," + loggedUserData.avatar}></img>
                     <div className="newTweetUserDetail">{loggedUserData.username}</div>
                     <div className="newTweetUserDetail">{loggedUserData.firstName} {loggedUserData.lastName}</div>
                     <div

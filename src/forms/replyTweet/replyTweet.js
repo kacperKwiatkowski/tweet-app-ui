@@ -67,7 +67,7 @@ const ReplyTweet = ({mainTweetId, threadId}) => {
     return (
         <form className="tweetReply" onSubmit={event => handleNewTweetSubmit(event)}>
             <img className="tweetAvatar"
-                 src="https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg"></img>
+                 src={"data:image/png;base64," + loggedUserData.avatar}></img>
             <div className="tweetDetailsWrapper">
                 <div className="tweetUserDetails">
 

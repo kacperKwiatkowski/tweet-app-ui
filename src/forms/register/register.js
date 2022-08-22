@@ -6,25 +6,26 @@ import Axios from "axios";
 
 const Register = () => {
 
-    const [credentials, setCredentials] = useState(
+    const [registerDataAvatarFile, setRegisterDataAvatarFile] = useState()
+    const [registerData, setRegisterData] = useState(
         {
             username: '',
             email: '',
             firstName: '',
             lastName: '',
             contactNumber: '',
-            avatar: '',
             password: '',
             passwordConfirm: ''
         }
     )
 
-    const handleChange = (event) => {
+    const handleRegisterChange = (event) => {
         const value = event.target.value;
-        setCredentials({
-            ...credentials,
+        setRegisterData({
+            ...registerData,
             [event.target.name]: value
-        });
+        })
+        console.log(registerData);
     };
 
     const handleRegisterSubmit = async (event) => {
@@ -33,20 +34,27 @@ const Register = () => {
 
     }
 
-    const authorize = () => {
+    const onFileChangeHandler = (e) => {
 
-        Axios.post("http://localhost:8080/api/v.1.0/tweets/register",
-            {
-                username: credentials.username,
-                email: credentials.email,
-                firstName: credentials.firstName,
-                lastName: credentials.lastName,
-                contactNumber: credentials.contactNumber,
-                avatar: credentials.avatar,
-                password: credentials.password,
-                passwordConfirm: credentials.passwordConfirm
-            }
-        )
+        console.log(registerData);
+        e.preventDefault();
+        setRegisterDataAvatarFile(e.target.files[0])
+
+        console.log(registerData);
+    }
+
+    const authorize = () => {
+        const formData = new FormData();
+        formData.append("username", registerData.username)
+        formData.append("email", registerData.email)
+        formData.append("firstName", registerData.firstName)
+        formData.append("lastName", registerData.lastName)
+        formData.append("contactNumber", registerData.contactNumber)
+        formData.append("avatar", registerDataAvatarFile)
+        formData.append("password", registerData.password)
+        formData.append("passwordConfirm", registerData.passwordConfirm)
+
+        Axios.post("http://localhost:8080/api/v.1.0/tweets/register", formData)
             .then(response => {
                 if (response.status === 200) {
 
@@ -58,24 +66,24 @@ const Register = () => {
 
     return (
         <div>
-            <form onSubmit={event => handleRegisterSubmit(event)}>
+            <form encType="multipart/form-data" onSubmit={event => handleRegisterSubmit(event)}>
                 <div className="formName">Register</div>
-                <input type="text" name="username" placeholder="Username" value={credentials.username}
-                       onChange={event => handleChange(event)}/>
-                <input type="email" name="email" placeholder="Email" value={credentials.email}
-                       onChange={event => handleChange(event)}/>
-                <input type="text" name="firstName" placeholder="First name" value={credentials.firstName}
-                       onChange={event => handleChange(event)}/>
-                <input type="text" name="lastName" placeholder="Last name" value={credentials.lastName}
-                       onChange={event => handleChange(event)}/>
-                <input type="text" name="contactNumber" placeholder="Contact number" value={credentials.contactNumber}
-                       onChange={event => handleChange(event)}/>
-                <input type="text" name="avatar" placeholder="Avatar" value={credentials.avatar}
-                       onChange={event => handleChange(event)}/>
-                <input type="password" name="password" placeholder="Password" value={credentials.password}
-                       onChange={event => handleChange(event)}/>
+                <input type="text" name="username" placeholder="Username" value={registerData.username}
+                       onChange={event => handleRegisterChange(event)}/>
+                <input type="email" name="email" placeholder="Email" value={registerData.email}
+                       onChange={event => handleRegisterChange(event)}/>
+                <input type="text" name="firstName" placeholder="First name" value={registerData.firstName}
+                       onChange={event => handleRegisterChange(event)}/>
+                <input type="text" name="lastName" placeholder="Last name" value={registerData.lastName}
+                       onChange={event => handleRegisterChange(event)}/>
+                <input type="text" name="contactNumber" placeholder="Contact number" value={registerData.contactNumber}
+                       onChange={event => handleRegisterChange(event)}/>
+                <input type="file" name="file" placeholder="avatar" value={registerData.file}
+                       onChange={event => onFileChangeHandler(event)}/>
+                <input type="password" name="password" placeholder="Password" value={registerData.password}
+                       onChange={event => handleRegisterChange(event)}/>
                 <input type="password" name="passwordConfirm" placeholder="Confirm password"
-                       value={credentials.passwordConfirm} onChange={event => handleChange(event)}/>
+                       value={registerData.passwordConfirm} onChange={event => handleRegisterChange(event)}/>
                 <div className="formButtonsWrapper">
 
                     <button className="formButton" type="reset">Reset</button>

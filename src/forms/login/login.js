@@ -7,16 +7,16 @@ import Axios from "axios";
 
 const Login = () => {
 
-    const [credentials, setCredentials] = useState({
+    const [loginData, setLoginData] = useState({
             username: '',
             password: ''
         }
     )
 
-    const handleChange = (event) => {
+    const handleLoginChange = (event) => {
         const value = event.target.value;
-        setCredentials({
-            ...credentials,
+        setLoginData({
+            ...loginData,
             [event.target.name]: value
         });
     };
@@ -30,14 +30,14 @@ const Login = () => {
 
         Axios.post("http://localhost:8080/api/v.1.0/tweets/login",
             {
-                username: credentials.username,
-                password: credentials.password
+                username: loginData.username,
+                password: loginData.password
             }
         )
             .then(response => {
                 if (response.status === 200) {
                     localStorage.setItem("authorization", response.data.jwt);
-                    localStorage.setItem('loggedUser', credentials.username);
+                    localStorage.setItem('loggedUser', loginData.username);
                 }
             }).catch(error => {
             console.error(error)
@@ -48,10 +48,10 @@ const Login = () => {
         <div>
             <form onSubmit={event => handleLoginSubmit(event)}>
                 <div className="formName">Login</div>
-                <input type="text" name="username" placeholder="Username" value={credentials.username}
-                       onChange={event => handleChange(event)}/>
-                <input type="password" name="password" placeholder="Password" value={credentials.password}
-                       onChange={event => handleChange(event)}/>
+                <input type="text" name="username" placeholder="Username" value={loginData.username}
+                       onChange={event => handleLoginChange(event)}/>
+                <input type="password" name="password" placeholder="Password" value={loginData.password}
+                       onChange={event => handleLoginChange(event)}/>
                 <div className="formButtonsWrapper">
                     <button className="formButton" type="reset">Reset</button>
                     <button className="formButton" type="submit" value="Submit">Submit</button>
