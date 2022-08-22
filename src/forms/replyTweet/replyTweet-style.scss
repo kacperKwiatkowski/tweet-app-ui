@@ -1,14 +1,11 @@
-.tweetDetailsWrapper {
-  width: 90%;
-}
 
-.tweet {
+.tweetReply {
 
-  width: 50vw;
+  width: 40vw;
 
   position: relative;
-  margin: 5px 15px 5px 15px;
   padding: 5px;
+  margin: 5px;
 
   color: #4C80D0;
   background-color: #EBEDF1;
@@ -17,16 +14,9 @@
 
   font-size: x-small;
 
-  &:nth-child(n+2) {
-    width: 40vw;
-
-    font-size: xx-small;
-    padding: 5px;
-    margin: 5px;
-
-  }
-
   .tweetAvatar {
+
+    position: relative;
     height: 3rem;
     width: 3rem;
 
@@ -34,12 +24,12 @@
     border-radius: 5px;
   }
 
-  .userDetails{
 
+  .userDetails {
     margin: auto 0 auto 0;
   }
 
-  .currentTime{
+  .currentTime {
     width: 35%;
     text-align: right;
   }
@@ -47,7 +37,6 @@
   .tweetUserDetails {
     display: flex;
     justify-content: space-between;
-
     margin: 5px;
   }
 
@@ -75,9 +64,9 @@
   }
 
   .buttonWrapper {
-    width: 100%;
     display: flex;
     justify-content: right;
+    margin: 5px;
   }
 
   .formButton {

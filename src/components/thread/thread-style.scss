@@ -1,12 +1,25 @@
 .thread {
 
+  margin-top: 50px;
+
   &:nth-of-type(odd) {
     justify-content: right;
     float: right;
     margin-right: auto;
+    display: block;
 
     .tweet {
+      margin-left: 10vw;
       margin-right: auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .tweetReply {
+      margin-left: 10vw;
+      margin-right: auto;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
@@ -15,8 +28,35 @@
     margin-left: auto;
 
     .tweet {
+      margin-right: 10vw;
       margin-left: auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .tweetReply {
+      margin-right: 10vw;
+      margin-left: auto;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
+  input {
+    height: 10px;
+    font-size: x-small;
+    border-bottom: #a6a6a6 1px solid;
+
+    &:hover {
+      border-bottom: #4D98F0 1px solid;
+      -webkit-transition: border 300ms ease-in-out;
+      -moz-transition: border 300ms ease-in-out;
+      -o-transition: border 300ms ease-in-out;
+      transition: border 300ms ease-in-out;
+    }
+  }
+
+  ::placeholder {
+    font-size: x-small;
+  }
 }

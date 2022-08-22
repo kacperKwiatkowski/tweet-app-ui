@@ -1,20 +1,9 @@
 import "./thread-style.scss"
 
 import Tweet from "../tweet/tweet"
-import NewTweet from "../../forms/newTweet/newTweet";
+import ReplyTweet from "../../forms/replyTweet/replyTweet";
 
 const Thread = ({thread}) => {
-
-    // const [thread, setThread] = useState(
-    //     {
-    //         tweets: []
-    //     }
-    // )
-    //
-    // useEffect(() => {
-    //     console.log("EFFECT -> REFRESH")
-    //     setThread(_thread)
-    // }, thread)
 
     function distributeThreads() {
 
@@ -37,7 +26,10 @@ const Thread = ({thread}) => {
     return (
         <div className="thread">
             {distributeThreads()}
-            <NewTweet></NewTweet>
+            <ReplyTweet
+                mainTweetId={thread.tweets[0].tweetId}
+                threadId={thread.tweets[0].threadId}
+            />
         </div>
     )
 }

@@ -15,17 +15,23 @@ const Tweet = ({tweet, allowReply}) => {
 
     return (
         <div className="tweet">
-            <div className="tweetUserDetails">
-                <img className="tweetAvatar"
-                     src="https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg"></img>
-                <div className="userDetails">{tweet.username}</div>
-                <div className="userDetails">{tweet.firstNa} {tweet.username}</div>
-                <div
-                    className="userDetails currentTime">{tweet.postDateTime}</div>
-            </div>
-            <div className="tweetUserDetails">
-                <div className="userDetails">{tweet.title}</div>
-                <div className="userDetails">{tweet.message}</div>
+            <img className="tweetAvatar"
+                 src="https://static.vecteezy.com/system/resources/thumbnails/001/993/889/small_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg"></img>
+            <div className="tweetDetailsWrapper">
+                <div className="tweetUserDetails">
+
+                    <div className="userDetails">{tweet.username}</div>
+                    <div className="userDetails">{tweet.firstNa} {tweet.username}</div>
+                    <div
+                        className="userDetails currentTime">{tweet.postDateTime}</div>
+                </div>
+                <div className="tweetUserDetails">
+                    <div className="userDetails">{tweet.title}</div>
+                    <div className="userDetails">{tweet.message}</div>
+                </div>
+                <div className="buttonWrapper">
+                    <button className="formButton" type="submit" value="Submit">Like</button>
+                </div>
             </div>
         </div>
     )
