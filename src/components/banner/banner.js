@@ -5,7 +5,7 @@ import Register from "../../forms/register/register";
 import NewTweet from "../../forms/newTweet/newTweet";
 import "../../interceptors/authTokenProvider"
 
-const Banner = ({loggedUserData}) => {
+const Banner = ({loggedUserData, actionCount, setActionCount}) => {
 
     function provideAuthentication() {
         if (!loggedUserData) {
@@ -18,7 +18,13 @@ const Banner = ({loggedUserData}) => {
 
     function provideContent() {
         if (loggedUserData) {
-            return <NewTweet loggedUserData={loggedUserData}></NewTweet>;
+            return (
+                <NewTweet
+                    loggedUserData={loggedUserData}
+                    actionCount={actionCount}
+                    setActionCount={setActionCount}
+                />
+            );
         }
     }
 

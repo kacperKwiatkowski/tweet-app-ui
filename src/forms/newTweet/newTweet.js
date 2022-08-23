@@ -3,15 +3,30 @@ import '../tweet-style.scss'
 import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
+import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 
-const NewTweet = ({loggedUserData}) => {
+const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
 
     const [date, setDate] = useState(new Date());
+    const [validationReport, setValidationReport] = useState(null)
     const [tweetToSave, setTweetToSave] = useState({
             title: '',
             message: ''
         }
     )
+
+    useEffect(() => {
+            const timer = setInterval(() => setDate(new Date()), 1000);
+            return function cleanup() {
+                clearInterval(timer)
+            }
+        }
+    );
+
+    const handleNewTweetSubmit = async (event) => {
+        event.preventDefault()
+        await postNewTweet();
+    }
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -26,23 +41,26 @@ const NewTweet = ({loggedUserData}) => {
             {
                 title: tweetToSave.title,
                 message: tweetToSave.message
-            })
-            .then(response => {
-            }).catch(error => {
-            console.error(error)
-        })
+            }
+        ).then(() => {
+                setActionCount(++actionCount)
+            }
+        ).catch(error => {
+                setValidationReport(error.response.data)
+            }
+        )
     }
 
-    useEffect(() => {
-        const timer = setInterval(() => setDate(new Date()), 1000);
-        return function cleanup() {
-            clearInterval(timer)
+    function generateExceptionMessage() {
+        if (validationReport != null) {
+            console.log()
+            return (
+                <ExceptionMessage
+                    message={validationReport}
+                    setMessage={setValidationReport}
+                />
+            )
         }
-    });
-
-    const handleNewTweetSubmit = async (event) => {
-        event.preventDefault()
-        await postNewTweet();
     }
 
     return (
@@ -67,7 +85,7 @@ const NewTweet = ({loggedUserData}) => {
                     <button className="formButton" type="submit" value="Submit">Post tweet</button>
                 </div>
             </form>
-
+            {generateExceptionMessage()}
         </div>
     )
 }

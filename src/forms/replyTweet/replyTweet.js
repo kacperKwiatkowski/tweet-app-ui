@@ -47,7 +47,6 @@ const ReplyTweet = ({mainTweetId, threadId, loggedUserData, actionCount, setActi
                 })
             }
         ).catch(error => {
-
                 if (error.response.status === 400) {
                     setValidationReport(error.response.data)
                 }
