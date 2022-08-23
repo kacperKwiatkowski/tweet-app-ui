@@ -7,6 +7,7 @@ import "../../interceptors/authTokenProvider"
 
 const Wall = ({loggedUserData}) => {
 
+    const [actionCount, setActionCount] = useState(0)
     const [wall, setWall] = useState(
         {
             threads: []
@@ -15,13 +16,11 @@ const Wall = ({loggedUserData}) => {
 
     useEffect(() => {
         fetchWallContent()
-        console.log("EFFECT")
-    }, [])
+    }, [actionCount])
 
     const fetchWallContent = () => {
         Axios.get("http://localhost:8080/api/v.1.0/tweets/all")
             .then(response => {
-                    console.log(response.data)
                     if (response.status === 200) {
                         setWall(response.data)
                     }
@@ -39,8 +38,9 @@ const Wall = ({loggedUserData}) => {
                         <Thread
                             key={index}
                             thread={thread}
-                            fetchWallContent={fetchWallContent}
                             loggedUserData={loggedUserData}
+                            actionCount={actionCount}
+                            setActionCount={setActionCount}
                         />
                     )
                 }

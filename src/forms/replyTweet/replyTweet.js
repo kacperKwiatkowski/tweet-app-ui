@@ -5,16 +5,23 @@ import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 
-const ReplyTweet = ({mainTweetId, threadId, loggedUserData, refreshThreadAction}) => {
+const ReplyTweet = ({mainTweetId, threadId, loggedUserData, actionCount, setActionCount}) => {
 
     const [date, setDate] = useState(new Date());
+    const [validationReport, setValidationReport] = useState(null)
     const [replyTweet, setReplyTweet] = useState({
             title: '',
             message: '',
             threadId: ''
         }
     )
-    const [validationReport, setValidationReport] = useState(null)
+
+    useEffect(() => {
+        const timer = setInterval(() => setDate(new Date()), 1000);
+        return function cleanup() {
+            clearInterval(timer)
+        }
+    }, []);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -24,39 +31,29 @@ const ReplyTweet = ({mainTweetId, threadId, loggedUserData, refreshThreadAction}
         });
     };
 
-
     const postReplyTweet = () => {
         Axios.post(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/reply/${mainTweetId}`,
             {
                 title: replyTweet.title,
                 message: replyTweet.message,
                 threadId: threadId
-            })
-            .then(response => {
-
-                console.log(response.status)
-
-                if (response.status === 201) {
-                    console.log(response.data)
-                    refreshThreadAction(threadId)
-                }
-            }).catch(error => {
-
-            console.log(error.response.status)
-
-            if (error.response.status === 400) {
-                console.log(error.response.data)
-                setValidationReport(error.response.data)
             }
-        })
-    }
+        ).then(() => {
+                setActionCount(++actionCount)
+                setReplyTweet({
+                    title: '',
+                    message: '',
+                    threadId: ''
+                })
+            }
+        ).catch(error => {
 
-    useEffect(() => {
-        const timer = setInterval(() => setDate(new Date()), 1000);
-        return function cleanup() {
-            clearInterval(timer)
-        }
-    });
+                if (error.response.status === 400) {
+                    setValidationReport(error.response.data)
+                }
+            }
+        )
+    }
 
     const handleNewTweetSubmit = async (event) => {
         event.preventDefault()
@@ -90,9 +87,9 @@ const ReplyTweet = ({mainTweetId, threadId, loggedUserData, refreshThreadAction}
                     </div>
                     <div className="tweetUserDetails">
                         <input className="userDetails title" type="" name="title" placeholder="Title"
-                               value={replyTweet.username} onChange={event => handleChange(event)}/>
+                               value={replyTweet.title} onChange={event => handleChange(event)}/>
                         <input className="userDetails message" type="text" name="message" placeholder="Message"
-                               value={replyTweet.password} onChange={event => handleChange(event)}/>
+                               value={replyTweet.message} onChange={event => handleChange(event)}/>
                     </div>
                     <div className="buttonWrapper">
                         <button className="formButton" type="reset">Reset</button>

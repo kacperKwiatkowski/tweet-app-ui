@@ -6,9 +6,8 @@ import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../messages/exceptionMessage/exceptionMessage";
 
-const Tweet = ({tweet, loggedUserData, refreshThread}) => {
+const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
 
-    const [thisTweet, setThisTweet] = useState(tweet);
     const [validationReport, setValidationReport] = useState(null)
     const [editTweet, setEditTweet] = useState({title: tweet.title, message: tweet.message})
 
@@ -21,10 +20,10 @@ const Tweet = ({tweet, loggedUserData, refreshThread}) => {
     };
 
     const handleLikeTweet = () => {
-        Axios.put(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/like/${thisTweet.tweetId}`,)
+        Axios.put(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/like/${tweet.tweetId}`,)
             .then(response => {
                     if (response.status === 200) {
-                        refreshTweet(thisTweet.tweetId)
+                        setActionCount(++actionCount)
                     }
                 }
             ).catch(error => {
@@ -37,31 +36,9 @@ const Tweet = ({tweet, loggedUserData, refreshThread}) => {
     }
 
     const handleEditTweet = () => {
-        Axios.put(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/update/${thisTweet.tweetId}`, editTweet)
+        Axios.put(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/update/${tweet.tweetId}`, editTweet)
             .then(response => {
-
-                console.log(response.status)
-
-                if (response.status === 200) {
-                    console.log(response.data)
-                    refreshTweet(thisTweet.tweetId)
-                }
-
-            }).catch(error => {
-
-            console.log(error.response.status)
-
-            if (error.response.status === 400) {
-                console.log(error.response.data)
-                setValidationReport(error.response.data)
-            }
-        })
-    }
-
-    const handleDeleteTweet = () => {
-        Axios.delete(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/delete/${thisTweet.tweetId}`)
-            .then(() => {
-                    refreshThread(thisTweet.threadId)
+                    setActionCount(++actionCount)
                 }
             ).catch(error => {
                 if (error.response.status === 400) {
@@ -72,14 +49,15 @@ const Tweet = ({tweet, loggedUserData, refreshThread}) => {
         )
     }
 
-    const refreshTweet = () => {
-        Axios.get(`http://localhost:8080/api/v.1.0/tweets/${thisTweet.tweetId}/get/tweet`)
-            .then(response => {
-                    console.log(response.data)
-                    setThisTweet(response.data)
+    const handleDeleteTweet = () => {
+        Axios.delete(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/delete/${tweet.tweetId}`)
+            .then(() => {
+                setActionCount(++actionCount)
                 }
             ).catch(error => {
-                console.error(error)
+                if (error.response.status === 400) {
+                    setValidationReport(error.response.data)
+                }
             }
         )
     }
@@ -97,7 +75,7 @@ const Tweet = ({tweet, loggedUserData, refreshThread}) => {
     }
 
     function generateEditDeleteButtons() {
-        if (loggedUserData.username === thisTweet.username)
+        if (loggedUserData.username === tweet.username)
             return <>
                 <button className="formButton" onClick={() => handleEditTweet()}>Edit</button>
                 <button className="formButton" onClick={() => handleDeleteTweet()}>Delete</button>
@@ -105,7 +83,7 @@ const Tweet = ({tweet, loggedUserData, refreshThread}) => {
     }
 
     function generateEditableDetails() {
-        if (loggedUserData.username === thisTweet.username) {
+        if (loggedUserData.username === tweet.username) {
             return (
                 <div className="tweetUserDetails">
                     <input className="userDetailsEditTitle" type="text" name="title" placeholder="Message"
@@ -118,8 +96,8 @@ const Tweet = ({tweet, loggedUserData, refreshThread}) => {
         } else {
             return (
                 <div className="tweetUserDetails">
-                    <div className="userDetails">{thisTweet.title}</div>
-                    <div className="userDetails">{thisTweet.message}</div>
+                    <div className="userDetails">{tweet.title}</div>
+                    <div className="userDetails">{tweet.message}</div>
                 </div>
             )
         }
@@ -130,14 +108,14 @@ const Tweet = ({tweet, loggedUserData, refreshThread}) => {
         <>
             <div className="tweet">
                 <img className="tweetAvatar"
-                     src={"data:image/png;base64," + thisTweet.avatar}></img>
+                     src={"data:image/png;base64," + tweet.avatar}></img>
                 <div className="tweetDetailsWrapper">
                     <div className="tweetUserDetails">
 
-                        <div className="userDetails">{thisTweet.username}</div>
-                        <div className="userDetails">{thisTweet.firstName} {thisTweet.lastName}</div>
-                        <div className="userDetails">Like count: {thisTweet.likeCount}</div>
-                        <div className="userDetails currentTime">{thisTweet.postDateTime}</div>
+                        <div className="userDetails">{tweet.username}</div>
+                        <div className="userDetails">{tweet.firstName} {tweet.lastName}</div>
+                        <div className="userDetails">Like count: {tweet.likeCount}</div>
+                        <div className="userDetails currentTime">{tweet.postDateTime}</div>
                     </div>
                     {generateEditableDetails()}
                     <div className="buttonWrapper">
