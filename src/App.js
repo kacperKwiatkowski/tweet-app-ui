@@ -13,16 +13,19 @@ function App() {
         fetchLoggedUser()
     }, []);
 
+
     const fetchLoggedUser = () => {
         Axios.get("http://localhost:8080/api/v.1.0/tweets/logged")
             .then(response => {
-                if (response.status === 200) {
-                    setLoggedUserData(response.data)
+                    if (response.status === 200) {
+                        setLoggedUserData(response.data)
+                    }
                 }
-            }).catch(error => {
-            console.error(error)
-            setLoggedUserData(null)
-        })
+            ).catch(error => {
+                console.error(error)
+                setLoggedUserData(null)
+            }
+        )
     }
 
 

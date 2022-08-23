@@ -34,12 +34,25 @@
     border-radius: 5px;
   }
 
-  .userDetails{
+  .userDetails {
 
     margin: auto 0 auto 0;
   }
 
-  .currentTime{
+  .userDetailsEditTitle {
+    width: 20%;
+    margin: auto 0 auto 0;
+    text-align: left;
+  }
+
+  .userDetailsEditMessage {
+    width: 70%;
+    margin: auto 0 auto 0;
+
+    text-align: right;
+  }
+
+  .currentTime {
     width: 35%;
     text-align: right;
   }

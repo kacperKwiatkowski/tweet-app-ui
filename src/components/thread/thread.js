@@ -5,38 +5,39 @@ import ReplyTweet from "../../forms/replyTweet/replyTweet";
 import {useState} from "react";
 import Axios from "axios";
 
-const Thread = ({thread, loggedUserData}) => {
+const Thread = ({thread, loggedUserData, fetchWallContent}) => {
 
     const [thisThread, setThisThread] = useState(thread);
 
     const refreshThread = (threadId) => {
-        console.log(threadId)
-        Axios.get(`http://localhost:8080/api/v.1.0/tweets/${threadId}/get/thread`,
-        )
-            .then(response => {
 
-                console.log(response.data)
+        console.log(thisThread.tweets.length)
 
-                if (response.status === 200) {
-                    setThisThread(response.data)
-                }
-            }).catch(error => {
-            console.error(error)
-        })
+        if (thisThread.tweets.length < 2) {
+            console.log("WALL IS BEING REFRESHED")
+            fetchWallContent()
+        } else {
+            console.log("WALL IS NOT BEING REFRESHED")
+
+            Axios.get(`http://localhost:8080/api/v.1.0/tweets/${threadId}/get/thread`)
+                .then(response => {
+                    if (response.status === 200) setThisThread(response.data)
+                }).catch(error => {
+                console.error(error)
+            })
+        }
     }
 
     function distributeThreads() {
-
-        let allowReply = true;
-
         return (
             thisThread.tweets.map((tweet, index) => {
                 return (
                     <Tweet
                         key={index}
                         tweet={tweet}
-                        allowReply={allowReply}
                         loggedUserData={loggedUserData}
+                        refreshThread={refreshThread}
+                        refreshWall={fetchWallContent}
                     />
                 )
             })

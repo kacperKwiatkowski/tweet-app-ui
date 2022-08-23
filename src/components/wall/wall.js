@@ -15,17 +15,21 @@ const Wall = ({loggedUserData}) => {
 
     useEffect(() => {
         fetchWallContent()
-    }, wall)
+        console.log("EFFECT")
+    }, [])
 
     const fetchWallContent = () => {
         Axios.get("http://localhost:8080/api/v.1.0/tweets/all")
             .then(response => {
-                if (response.status === 200) {
-                    setWall(response.data)
+                    console.log(response.data)
+                    if (response.status === 200) {
+                        setWall(response.data)
+                    }
                 }
-            }).catch(error => {
-            console.error(error)
-        })
+            ).catch(error => {
+                console.error(error)
+            }
+        )
     }
 
     function distributeThreads() {
@@ -35,9 +39,9 @@ const Wall = ({loggedUserData}) => {
                         <Thread
                             key={index}
                             thread={thread}
+                            fetchWallContent={fetchWallContent}
                             loggedUserData={loggedUserData}
                         />
-
                     )
                 }
             )
