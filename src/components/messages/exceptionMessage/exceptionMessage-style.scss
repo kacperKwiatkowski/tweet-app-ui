@@ -1,0 +1,58 @@
+.exceptionWrapper {
+  display: flex;
+
+  font-size: x-small;
+
+  width: 40vw;
+
+  margin: auto;
+  padding: 5px;
+
+  border: darkred 2px solid;
+  border-radius: 5px;
+
+
+  background-color: #ffebeb;
+}
+
+.exceptionMessageWrapper {
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+
+}
+
+.exceptionMessage {
+
+  color: darkred;
+}
+
+.exceptionMessageButtonWrapper {
+  width: 50%;
+  display: flex;
+  justify-content: right;
+  margin: 5px;
+}
+
+.exceptionMessageButton {
+  font-family: 'Josefin Sans', sans-serif;
+
+  width: 4vw;
+  height: 1.5vw;
+  font-size: xx-small;
+  margin: auto 0 auto 5px;
+
+  color: #EBEDF1;
+
+  background-color: darkred;
+
+  border: none;
+  border-radius: 5px;
+
+  -moz-box-shadow: 0px 0px 4px 1px darkred;
+  -webkit-box-shadow: 0px 0px 4px 1px darkred;
+  box-shadow: 0px 0px 4px 1px darkred;
+  transition: border 300ms ease-in-out;
+}

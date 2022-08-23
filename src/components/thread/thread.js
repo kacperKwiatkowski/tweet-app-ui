@@ -14,8 +14,12 @@ const Thread = ({thread, loggedUserData}) => {
         Axios.get(`http://localhost:8080/api/v.1.0/tweets/${threadId}/get/thread`,
         )
             .then(response => {
+
                 console.log(response.data)
-                setThisThread(response.data)
+
+                if (response.status === 200) {
+                    setThisThread(response.data)
+                }
             }).catch(error => {
             console.error(error)
         })
@@ -38,6 +42,7 @@ const Thread = ({thread, loggedUserData}) => {
             })
         );
     }
+
 
     return (
         <div className="thread">

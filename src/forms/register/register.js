@@ -1,8 +1,9 @@
 import './register-style.scss'
 import '../form-style.scss'
 import '../../App.scss'
-import {useState} from "react";
+import React, {useState} from "react";
 import Axios from "axios";
+import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 
 const Register = () => {
 
@@ -18,6 +19,7 @@ const Register = () => {
             passwordConfirm: ''
         }
     )
+    const [validationReport, setValidationReport] = useState(null)
 
     const handleRegisterChange = (event) => {
         const value = event.target.value;
@@ -60,8 +62,23 @@ const Register = () => {
 
                 }
             }).catch(error => {
-            console.error(error)
+
+            console.log(error.response.status)
+            console.log(error.response.data)
+            setValidationReport(error.response.data)
         })
+    }
+
+    function generateExceptionMessage() {
+        if (validationReport != null) {
+            console.log()
+            return (
+                <ExceptionMessage
+                    message={validationReport}
+                    setMessage={setValidationReport}
+                />
+            )
+        }
     }
 
     return (
@@ -90,6 +107,7 @@ const Register = () => {
                     <button className="formButton" type="submit">Submit</button>
                 </div>
             </form>
+            {generateExceptionMessage()}
         </div>
     )
 }

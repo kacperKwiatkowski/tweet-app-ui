@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 
 function App() {
 
-    const [loggedUserData, setLoggedUserData] = useState({})
+    const [loggedUserData, setLoggedUserData] = useState(null)
 
     useEffect(() => {
         fetchLoggedUser()
@@ -21,6 +21,7 @@ function App() {
                 }
             }).catch(error => {
             console.error(error)
+            setLoggedUserData(null)
         })
     }
 

@@ -4,6 +4,7 @@ import '../../App.scss'
 
 import React, {useState} from "react";
 import Axios from "axios";
+import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 
 const Login = () => {
 
@@ -12,6 +13,7 @@ const Login = () => {
             password: ''
         }
     )
+    const [validationReport, setValidationReport] = useState(null)
 
     const handleLoginChange = (event) => {
         const value = event.target.value;
@@ -40,11 +42,26 @@ const Login = () => {
                     localStorage.setItem('loggedUser', loginData.username);
                 }
             }).catch(error => {
-            console.error(error)
+
+            console.log(error.response.status)
+            console.log(error.response.data)
+            setValidationReport(error.response.data)
         })
     }
 
-    return(
+    function generateExceptionMessage() {
+        if (validationReport != null) {
+            console.log()
+            return (
+                <ExceptionMessage
+                    message={validationReport}
+                    setMessage={setValidationReport}
+                />
+            )
+        }
+    }
+
+    return (
         <div>
             <form onSubmit={event => handleLoginSubmit(event)}>
                 <div className="formName">Login</div>
@@ -57,6 +74,7 @@ const Login = () => {
                     <button className="formButton" type="submit" value="Submit">Submit</button>
                 </div>
             </form>
+            {generateExceptionMessage()}
         </div>
     )
 }
