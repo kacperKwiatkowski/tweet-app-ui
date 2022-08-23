@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 
-const Wall = () => {
+const Wall = ({loggedUserData}) => {
 
     const [wall, setWall] = useState(
         {
@@ -35,6 +35,7 @@ const Wall = () => {
                         <Thread
                             key={index}
                             thread={thread}
+                            loggedUserData={loggedUserData}
                         />
 
                     )

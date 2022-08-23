@@ -4,10 +4,9 @@ import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 
-const ReplyTweet = ({mainTweetId, threadId}) => {
+const ReplyTweet = ({mainTweetId, threadId, loggedUserData, refreshThreadAction}) => {
 
     const [date, setDate] = useState(new Date());
-    const [loggedUserData, setLoggedUserData] = useState({})
     const [replyTweet, setReplyTweet] = useState({
             title: '',
             message: '',
@@ -23,16 +22,6 @@ const ReplyTweet = ({mainTweetId, threadId}) => {
         });
     };
 
-    const fetchLoggedUser = () => {
-        Axios.get("http://localhost:8080/api/v.1.0/tweets/logged")
-            .then(response => {
-                if (response.status === 200) {
-                    setLoggedUserData(response.data)
-                }
-            }).catch(error => {
-            console.error(error)
-        })
-    }
 
     const postReplyTweet = () => {
         Axios.post(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/reply/${mainTweetId}`,
@@ -42,7 +31,7 @@ const ReplyTweet = ({mainTweetId, threadId}) => {
                 threadId: threadId
             })
             .then(response => {
-
+                refreshThreadAction(threadId)
             }).catch(error => {
             console.error(error)
         })
@@ -54,10 +43,6 @@ const ReplyTweet = ({mainTweetId, threadId}) => {
             clearInterval(timer)
         }
     });
-
-    useEffect(() => {
-        fetchLoggedUser()
-    }, loggedUserData);
 
     const handleNewTweetSubmit = async (event) => {
         event.preventDefault()

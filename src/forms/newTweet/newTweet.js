@@ -4,10 +4,9 @@ import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 
-const NewTweet = () => {
+const NewTweet = ({loggedUserData}) => {
 
     const [date, setDate] = useState(new Date());
-    const [loggedUserData, setLoggedUserData] = useState({})
     const [tweetToSave, setTweetToSave] = useState({
             title: '',
             message: ''
@@ -22,17 +21,6 @@ const NewTweet = () => {
         });
     };
 
-    const fetchLoggedUser = () => {
-        Axios.get("http://localhost:8080/api/v.1.0/tweets/logged")
-            .then(response => {
-                if (response.status === 200) {
-                    setLoggedUserData(response.data)
-                }
-            }).catch(error => {
-            console.error(error)
-        })
-    }
-
     const postNewTweet = () => {
         Axios.post(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/add`,
             {
@@ -40,7 +28,6 @@ const NewTweet = () => {
                 message: tweetToSave.message
             })
             .then(response => {
-
             }).catch(error => {
             console.error(error)
         })
@@ -52,10 +39,6 @@ const NewTweet = () => {
             clearInterval(timer)
         }
     });
-
-    useEffect(() => {
-        fetchLoggedUser()
-    }, loggedUserData);
 
     const handleNewTweetSubmit = async (event) => {
         event.preventDefault()

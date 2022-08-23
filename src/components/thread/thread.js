@@ -2,33 +2,51 @@ import "./thread-style.scss"
 
 import Tweet from "../tweet/tweet"
 import ReplyTweet from "../../forms/replyTweet/replyTweet";
+import {useState} from "react";
+import Axios from "axios";
 
-const Thread = ({thread}) => {
+const Thread = ({thread, loggedUserData}) => {
+
+    const [thisThread, setThisThread] = useState(thread);
+
+    const refreshThread = (threadId) => {
+        console.log(threadId)
+        Axios.get(`http://localhost:8080/api/v.1.0/tweets/${threadId}/get/thread`,
+        )
+            .then(response => {
+                console.log(response.data)
+                setThisThread(response.data)
+            }).catch(error => {
+            console.error(error)
+        })
+    }
 
     function distributeThreads() {
 
         let allowReply = true;
 
         return (
-            thread.tweets.map((tweet, index) => {
+            thisThread.tweets.map((tweet, index) => {
                 return (
                     <Tweet
                         key={index}
                         tweet={tweet}
                         allowReply={allowReply}
+                        loggedUserData={loggedUserData}
                     />
                 )
             })
         );
     }
 
-    console.log(thread)
     return (
         <div className="thread">
             {distributeThreads()}
             <ReplyTweet
-                mainTweetId={thread.tweets[0].tweetId}
-                threadId={thread.tweets[0].threadId}
+                mainTweetId={thisThread.tweets[0].tweetId}
+                threadId={thisThread.tweets[0].threadId}
+                loggedUserData={loggedUserData}
+                refreshThreadAction={refreshThread}
             />
         </div>
     )
