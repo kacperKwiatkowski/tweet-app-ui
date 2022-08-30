@@ -4,9 +4,11 @@ import '../../App.scss'
 import React, {useState} from "react";
 import Axios from "axios";
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
+import SuccessMessage from "../../components/messages/successMessage/successMessage";
 
-const Register = ({actionCount, setActionCount}) => {
+const Register = () => {
 
+    const [successReport, setSuccessReport] = useState(null)
     const [registerDataAvatarFile, setRegisterDataAvatarFile] = useState()
     const [registerData, setRegisterData] = useState(
         {
@@ -27,22 +29,16 @@ const Register = ({actionCount, setActionCount}) => {
             ...registerData,
             [event.target.name]: value
         })
-        console.log(registerData);
     };
 
     const handleRegisterSubmit = async (event) => {
         event.preventDefault()
         await authorize();
-        setActionCount(++actionCount)
     }
 
     const onFileChangeHandler = (e) => {
-
-        console.log(registerData);
         e.preventDefault();
         setRegisterDataAvatarFile(e.target.files[0])
-
-        console.log(registerData);
     }
 
     const authorize = () => {
@@ -58,20 +54,27 @@ const Register = ({actionCount, setActionCount}) => {
 
         Axios.post("http://localhost:8080/api/v.1.0/tweets/register", formData)
             .then(response => {
-                if (response.status === 200) {
-
+                if (response.status === 201) {
+                    setSuccessReport(`User ${registerData.username} registered`)
                 }
             }).catch(error => {
-
-            console.log(error.response.status)
-            console.log(error.response.data)
             setValidationReport(error.response.data)
         })
     }
 
+    function generateSuccessMessage() {
+        if (successReport != null) {
+            return (
+                <SuccessMessage
+                    message={successReport}
+                    setMessage={setSuccessReport}
+                />
+            )
+        }
+    }
+
     function generateExceptionMessage() {
         if (validationReport != null) {
-            console.log()
             return (
                 <ExceptionMessage
                     message={validationReport}
@@ -107,6 +110,7 @@ const Register = ({actionCount, setActionCount}) => {
                     <button className="formButton" type="submit">Submit</button>
                 </div>
             </form>
+            {generateSuccessMessage()}
             {generateExceptionMessage()}
         </div>
     )

@@ -1,0 +1,5 @@
+export const PHASES = {
+    LOADING: 0,
+    NOT_AUTHENTICATED: 1,
+    AUTHENTICATED: 2
+}

@@ -1,10 +1,11 @@
 import './header-style.scss';
+import {PHASES} from "../../constants/phases";
 
-const Header = ({actionCount, setActionCount}) => {
+const Header = ({setCurrentPhase}) => {
 
     function logOut() {
         localStorage.clear()
-        setActionCount(++actionCount)
+        setCurrentPhase(PHASES.NOT_AUTHENTICATED)
     }
 
     return (

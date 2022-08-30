@@ -5,9 +5,11 @@ import '../../App.scss'
 import React, {useState} from "react";
 import Axios from "axios";
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
+import SuccessMessage from "../../components/messages/successMessage/successMessage";
 
-const ForgotPassword = ({actionCount, setActionCount}) => {
+const ForgotPassword = () => {
 
+    const [successReport, setSuccessReport] = useState(null)
     const [forgotPasswordData, setForgotPasswordData] = useState({
             username: ''
         }
@@ -25,7 +27,6 @@ const ForgotPassword = ({actionCount, setActionCount}) => {
     const handleLoginSubmit = async (event) => {
         event.preventDefault()
         await authorize();
-        setActionCount(++actionCount)
     }
 
     const authorize = () => {
@@ -35,7 +36,9 @@ const ForgotPassword = ({actionCount, setActionCount}) => {
                 username: forgotPasswordData.username
             }
         ).then(response => {
-
+                if (response.status === 200) {
+                    setSuccessReport(`Email with new password has been sent.`)
+                }
             }
         ).catch(error => {
                 setValidationReport(error.response.data)
@@ -43,9 +46,19 @@ const ForgotPassword = ({actionCount, setActionCount}) => {
         )
     }
 
+    function generateSuccessMessage() {
+        if (successReport != null) {
+            return (
+                <SuccessMessage
+                    message={successReport}
+                    setMessage={setSuccessReport}
+                />
+            )
+        }
+    }
+
     function generateExceptionMessage() {
         if (validationReport != null) {
-            console.log()
             return (
                 <ExceptionMessage
                     message={validationReport}
@@ -66,6 +79,7 @@ const ForgotPassword = ({actionCount, setActionCount}) => {
                     <button className="formButton" type="submit" value="Submit">Submit</button>
                 </div>
             </form>
+            {generateSuccessMessage()}
             {generateExceptionMessage()}
         </div>
     )

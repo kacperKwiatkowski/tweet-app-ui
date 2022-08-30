@@ -4,10 +4,12 @@ import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
+import SuccessMessage from "../../components/messages/successMessage/successMessage";
 
-const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
+const NewTweet = ({loggedUserData}) => {
 
     const [date, setDate] = useState(new Date());
+    const [successReport, setSuccessReport] = useState(null)
     const [validationReport, setValidationReport] = useState(null)
     const [tweetToSave, setTweetToSave] = useState({
             title: '',
@@ -26,6 +28,7 @@ const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
     const handleNewTweetSubmit = async (event) => {
         event.preventDefault()
         await postNewTweet();
+
     }
 
     const handleChange = (event) => {
@@ -43,7 +46,7 @@ const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
                 message: tweetToSave.message
             }
         ).then(() => {
-                setActionCount(++actionCount)
+                setSuccessReport("New tweet posted")
             }
         ).catch(error => {
                 setValidationReport(error.response.data)
@@ -51,9 +54,19 @@ const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
         )
     }
 
+    function generateSuccessMessage() {
+        if (successReport != null) {
+            return (
+                <SuccessMessage
+                    message={successReport}
+                    setMessage={setSuccessReport}
+                />
+            )
+        }
+    }
+
     function generateExceptionMessage() {
         if (validationReport != null) {
-            console.log()
             return (
                 <ExceptionMessage
                     message={validationReport}
@@ -85,6 +98,7 @@ const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
                     <button className="formButton" type="submit" value="Submit">Post tweet</button>
                 </div>
             </form>
+            {generateSuccessMessage()}
             {generateExceptionMessage()}
         </div>
     )

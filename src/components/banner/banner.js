@@ -5,21 +5,15 @@ import Register from "../../forms/register/register";
 import ForgotPassword from "../../forms/forgotPassword/forgotPassword";
 import "../../interceptors/authTokenProvider"
 
-const Banner = ({actionCount, setActionCount}) => {
+const Banner = ({setCurrentPhase}) => {
 
     return (
         <div id="banner">
             <Login
-                actionCount={actionCount}
-                setActionCount={setActionCount}></Login>
-            <Register
-                actionCount={actionCount}
-                setActionCount={setActionCount}
-            ></Register>
-            <ForgotPassword
-                actionCount={actionCount}
-                setActionCount={setActionCount}
-            ></ForgotPassword>
+                setCurrentPhase={setCurrentPhase}
+            />
+            <Register/>
+            <ForgotPassword/>
         </div>
     )
 }

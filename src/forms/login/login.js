@@ -5,8 +5,9 @@ import '../../App.scss'
 import React, {useState} from "react";
 import Axios from "axios";
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
+import {PHASES} from "../../constants/phases";
 
-const Login = ({actionCount, setActionCount}) => {
+const Login = ({setCurrentPhase}) => {
 
     const [loginData, setLoginData] = useState({
             username: '',
@@ -26,7 +27,6 @@ const Login = ({actionCount, setActionCount}) => {
     const handleLoginSubmit = async (event) => {
         event.preventDefault()
         await authorize();
-        setActionCount(++actionCount)
     }
 
     const authorize = () => {
@@ -36,23 +36,23 @@ const Login = ({actionCount, setActionCount}) => {
                 username: loginData.username,
                 password: loginData.password
             }
-        )
-            .then(response => {
+        ).then(response => {
                 if (response.status === 200) {
                     localStorage.setItem("authorization", response.data.jwt);
                     localStorage.setItem('loggedUser', loginData.username);
                 }
-            }).catch(error => {
 
-            console.log(error.response.status)
-            console.log(error.response.data)
-            setValidationReport(error.response.data)
-        })
+                setCurrentPhase(PHASES.AUTHENTICATED)
+            }
+        ).catch(error => {
+                setValidationReport(error.response.data)
+                setCurrentPhase(PHASES.NOT_AUTHENTICATED)
+            }
+        )
     }
 
     function generateExceptionMessage() {
         if (validationReport != null) {
-            console.log()
             return (
                 <ExceptionMessage
                     message={validationReport}

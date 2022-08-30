@@ -11,13 +11,9 @@ import Spinner from "./components/spinner/spinner";
 
 import "./interceptors/authTokenProvider"
 
-function App() {
+import {PHASES} from "./constants/phases";
 
-    const PHASES = {
-        LOADING: 0,
-        NOT_AUTHENTICATED: 1,
-        AUTHENTICATED: 2
-    }
+function App() {
 
     const [currentPhase, setCurrentPhase] = useState(PHASES.LOADING)
     const [loggedUserData, setLoggedUserData] = useState(undefined)
@@ -29,36 +25,32 @@ function App() {
     )
 
     useEffect(() => {
-        console.log("1")
         fetchLoggedUser()
     }, []);
 
     useEffect(() => {
-        console.log("2")
         fetchWallContent()
     }, [actionCount])
 
     useEffect(() => {
-        console.log("3")
-        updatePhase()
+        provideComponents()
 
-    }, [loggedUserData, actionCount])
+    }, [currentPhase])
 
+    const fetchLoggedUser = () => {
+        Axios.get("http://localhost:8080/api/v.1.0/tweets/logged")
+            .then(response => {
+                    if (response.status === 200) {
+                        setLoggedUserData(response.data)
 
-    function updatePhase() {
-
-        console.log(loggedUserData)
-        switch (loggedUserData) {
-
-            case undefined:
-                setCurrentPhase(PHASES.LOADING)
-                break;
-            case null:
+                        setCurrentPhase(PHASES.AUTHENTICATED)
+                    }
+                }
+            ).catch(error => {
+                setLoggedUserData(null)
                 setCurrentPhase(PHASES.NOT_AUTHENTICATED)
-                break;
-            default:
-                setCurrentPhase(PHASES.AUTHENTICATED)
-        }
+            }
+        )
     }
 
     const fetchWallContent = () => {
@@ -66,7 +58,6 @@ function App() {
             .then(response => {
 
                     if (response.status === 200) {
-                        console.log(response.data)
                         setWall(response.data)
                     }
                 }
@@ -75,21 +66,6 @@ function App() {
             }
         )
     }
-
-    const fetchLoggedUser = () => {
-        Axios.get("http://localhost:8080/api/v.1.0/tweets/logged")
-            .then(response => {
-                    if (response.status === 200) {
-                        setLoggedUserData(response.data)
-                    }
-                }
-            ).catch(error => {
-                console.error(error)
-                setLoggedUserData(null)
-            }
-        )
-    }
-
 
     function provideComponents() {
         switch (currentPhase) {
@@ -108,8 +84,7 @@ function App() {
 
     function provideBanner() {
         return <Banner
-            actionCount={actionCount}
-            setActionCount={setActionCount}
+            setCurrentPhase={setCurrentPhase}
         />;
     }
 
@@ -117,8 +92,6 @@ function App() {
         return <>
             <NewTweet
                 loggedUserData={loggedUserData}
-                actionCount={actionCount}
-                setActionCount={setActionCount}
             />
             <Wall
                 loggedUserData={loggedUserData}
@@ -132,8 +105,7 @@ function App() {
     return (
         <div id="app">
             <Header
-                actionCount={actionCount}
-                setActionCount={setActionCount}
+                setCurrentPhase={setCurrentPhase}
             />
             {provideComponents()}
         </div>

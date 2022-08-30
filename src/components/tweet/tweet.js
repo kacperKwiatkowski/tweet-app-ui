@@ -5,9 +5,11 @@ import React, {useState} from "react";
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../messages/exceptionMessage/exceptionMessage";
+import SuccessMessage from "../messages/successMessage/successMessage";
 
 const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
 
+    const [successReport, setSuccessReport] = useState(null)
     const [validationReport, setValidationReport] = useState(null)
     const [editTweet, setEditTweet] = useState({title: tweet.title, message: tweet.message})
 
@@ -28,7 +30,6 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
                 }
             ).catch(error => {
                 if (error.response.status === 400) {
-                    console.log(error.response.data)
                     setValidationReport(error.response.data)
                 }
             }
@@ -39,10 +40,11 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
         Axios.put(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/update/${tweet.tweetId}`, editTweet)
             .then(response => {
                     setActionCount(++actionCount)
+                    setSuccessReport("Tweet edited")
+
                 }
             ).catch(error => {
                 if (error.response.status === 400) {
-                    console.log(error.response.data)
                     setValidationReport(error.response.data)
                 }
             }
@@ -52,7 +54,8 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
     const handleDeleteTweet = () => {
         Axios.delete(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/delete/${tweet.tweetId}`)
             .then(() => {
-                setActionCount(++actionCount)
+                    setActionCount(++actionCount)
+
                 }
             ).catch(error => {
                 if (error.response.status === 400) {
@@ -62,9 +65,19 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
         )
     }
 
+    function generateSuccessMessage() {
+        if (successReport != null) {
+            return (
+                <SuccessMessage
+                    message={successReport}
+                    setMessage={setSuccessReport}
+                />
+            )
+        }
+    }
+
     function generateExceptionMessage() {
         if (validationReport != null) {
-            console.log()
             return (
                 <ExceptionMessage
                     message={validationReport}
@@ -125,6 +138,7 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
                     </div>
                 </div>
             </div>
+            {generateSuccessMessage()}
             {generateExceptionMessage()}
         </>
     )

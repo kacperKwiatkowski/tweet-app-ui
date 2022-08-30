@@ -61,7 +61,6 @@ const ReplyTweet = ({mainTweetId, threadId, loggedUserData, actionCount, setActi
 
     function generateExceptionMessage() {
         if (validationReport != null) {
-            console.log()
             return (
                 <ExceptionMessage
                     message={validationReport}
