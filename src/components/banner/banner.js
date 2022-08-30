@@ -2,36 +2,24 @@ import './banner-style.scss'
 
 import Login from "../../forms/login/login";
 import Register from "../../forms/register/register";
-import NewTweet from "../../forms/newTweet/newTweet";
+import ForgotPassword from "../../forms/forgotPassword/forgotPassword";
 import "../../interceptors/authTokenProvider"
 
-const Banner = ({loggedUserData, actionCount, setActionCount}) => {
-
-    function provideAuthentication() {
-        if (!loggedUserData) {
-            return <>
-                <Login></Login>
-                <Register></Register>
-            </>;
-        }
-    }
-
-    function provideContent() {
-        if (loggedUserData) {
-            return (
-                <NewTweet
-                    loggedUserData={loggedUserData}
-                    actionCount={actionCount}
-                    setActionCount={setActionCount}
-                />
-            );
-        }
-    }
+const Banner = ({actionCount, setActionCount}) => {
 
     return (
         <div id="banner">
-            {provideAuthentication()}
-            {provideContent()}
+            <Login
+                actionCount={actionCount}
+                setActionCount={setActionCount}></Login>
+            <Register
+                actionCount={actionCount}
+                setActionCount={setActionCount}
+            ></Register>
+            <ForgotPassword
+                actionCount={actionCount}
+                setActionCount={setActionCount}
+            ></ForgotPassword>
         </div>
     )
 }

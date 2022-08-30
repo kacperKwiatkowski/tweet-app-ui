@@ -1,13 +1,26 @@
 import './App.scss';
-import Header from './components/header/header'
-import Banner from "./components/banner/banner";
-import Wall from "./components/wall/wall";
+
 import Axios from "axios";
 import React, {useEffect, useState} from "react";
 
+import Header from './components/header/header'
+import Banner from "./components/banner/banner";
+import Wall from "./components/wall/wall";
+import NewTweet from "./forms/newTweet/newTweet";
+import Spinner from "./components/spinner/spinner";
+
+import "./interceptors/authTokenProvider"
+
 function App() {
 
-    const [loggedUserData, setLoggedUserData] = useState(null)
+    const PHASES = {
+        LOADING: 0,
+        NOT_AUTHENTICATED: 1,
+        AUTHENTICATED: 2
+    }
+
+    const [currentPhase, setCurrentPhase] = useState(PHASES.LOADING)
+    const [loggedUserData, setLoggedUserData] = useState(undefined)
     const [actionCount, setActionCount] = useState(0)
     const [wall, setWall] = useState(
         {
@@ -16,19 +29,41 @@ function App() {
     )
 
     useEffect(() => {
-        console.log("LOGGED")
+        console.log("1")
         fetchLoggedUser()
     }, []);
 
     useEffect(() => {
-        console.log("WALL")
+        console.log("2")
         fetchWallContent()
     }, [actionCount])
+
+    useEffect(() => {
+        console.log("3")
+        updatePhase()
+
+    }, [loggedUserData, actionCount])
+
+
+    function updatePhase() {
+
+        console.log(loggedUserData)
+        switch (loggedUserData) {
+
+            case undefined:
+                setCurrentPhase(PHASES.LOADING)
+                break;
+            case null:
+                setCurrentPhase(PHASES.NOT_AUTHENTICATED)
+                break;
+            default:
+                setCurrentPhase(PHASES.AUTHENTICATED)
+        }
+    }
 
     const fetchWallContent = () => {
         Axios.get("http://localhost:8080/api/v.1.0/tweets/all")
             .then(response => {
-                    console.log("REFRESHED")
 
                     if (response.status === 200) {
                         console.log(response.data)
@@ -49,17 +84,38 @@ function App() {
                     }
                 }
             ).catch(error => {
-            console.error(error)
+                console.error(error)
                 setLoggedUserData(null)
             }
         )
     }
 
 
-    return (
-        <div id="app">
-            <Header/>
-            <Banner
+    function provideComponents() {
+        switch (currentPhase) {
+            case PHASES.LOADING:
+                return <>{provideSpinner()}</>
+            case PHASES.NOT_AUTHENTICATED:
+                return <>{provideBanner()}</>
+            default:
+                return <>{provideContent()}</>
+        }
+    }
+
+    function provideSpinner() {
+        return <Spinner/>
+    }
+
+    function provideBanner() {
+        return <Banner
+            actionCount={actionCount}
+            setActionCount={setActionCount}
+        />;
+    }
+
+    function provideContent() {
+        return <>
+            <NewTweet
                 loggedUserData={loggedUserData}
                 actionCount={actionCount}
                 setActionCount={setActionCount}
@@ -70,6 +126,16 @@ function App() {
                 actionCount={actionCount}
                 setActionCount={setActionCount}
             />
+        </>;
+    }
+
+    return (
+        <div id="app">
+            <Header
+                actionCount={actionCount}
+                setActionCount={setActionCount}
+            />
+            {provideComponents()}
         </div>
     );
 }

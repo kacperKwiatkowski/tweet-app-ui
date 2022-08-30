@@ -1,14 +1,18 @@
 import './header-style.scss';
 
-const Header = () => {
+const Header = ({actionCount, setActionCount}) => {
 
-    return(
+    function logOut() {
+        localStorage.clear()
+        setActionCount(++actionCount)
+    }
+
+    return (
         <header>
             <menu>
                 <div id="logo">TWEET</div>
                 <ul>
-                    <li>Login</li>
-                    <li>Register</li>
+                    <li onClick={() => logOut()}>Log out</li>
                 </ul>
             </menu>
         </header>

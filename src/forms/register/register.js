@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import Axios from "axios";
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 
-const Register = () => {
+const Register = ({actionCount, setActionCount}) => {
 
     const [registerDataAvatarFile, setRegisterDataAvatarFile] = useState()
     const [registerData, setRegisterData] = useState(
@@ -33,7 +33,7 @@ const Register = () => {
     const handleRegisterSubmit = async (event) => {
         event.preventDefault()
         await authorize();
-
+        setActionCount(++actionCount)
     }
 
     const onFileChangeHandler = (e) => {

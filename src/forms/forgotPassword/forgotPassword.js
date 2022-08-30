@@ -1,4 +1,4 @@
-import './login-style.scss'
+import './forgotPassword-style.scss'
 import '../form-style.scss'
 import '../../App.scss'
 
@@ -6,19 +6,18 @@ import React, {useState} from "react";
 import Axios from "axios";
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 
-const Login = ({actionCount, setActionCount}) => {
+const ForgotPassword = ({actionCount, setActionCount}) => {
 
-    const [loginData, setLoginData] = useState({
-            username: '',
-            password: ''
+    const [forgotPasswordData, setForgotPasswordData] = useState({
+            username: ''
         }
     )
     const [validationReport, setValidationReport] = useState(null)
 
     const handleLoginChange = (event) => {
         const value = event.target.value;
-        setLoginData({
-            ...loginData,
+        setForgotPasswordData({
+            ...forgotPasswordData,
             [event.target.name]: value
         });
     };
@@ -31,23 +30,17 @@ const Login = ({actionCount, setActionCount}) => {
 
     const authorize = () => {
 
-        Axios.post("http://localhost:8080/api/v.1.0/tweets/login",
+        Axios.get(`http://localhost:8080/api/v.1.0/tweets/${forgotPasswordData.username}/forgot`,
             {
-                username: loginData.username,
-                password: loginData.password
+                username: forgotPasswordData.username
+            }
+        ).then(response => {
+
+            }
+        ).catch(error => {
+                setValidationReport(error.response.data)
             }
         )
-            .then(response => {
-                if (response.status === 200) {
-                    localStorage.setItem("authorization", response.data.jwt);
-                    localStorage.setItem('loggedUser', loginData.username);
-                }
-            }).catch(error => {
-
-            console.log(error.response.status)
-            console.log(error.response.data)
-            setValidationReport(error.response.data)
-        })
     }
 
     function generateExceptionMessage() {
@@ -65,10 +58,8 @@ const Login = ({actionCount, setActionCount}) => {
     return (
         <div>
             <form onSubmit={event => handleLoginSubmit(event)}>
-                <div className="formName">Login</div>
-                <input type="text" name="username" placeholder="Username" value={loginData.username}
-                       onChange={event => handleLoginChange(event)}/>
-                <input type="password" name="password" placeholder="Password" value={loginData.password}
+                <div className="formName">Forgot password</div>
+                <input type="text" name="username" placeholder="Username" value={forgotPasswordData.username}
                        onChange={event => handleLoginChange(event)}/>
                 <div className="formButtonsWrapper">
                     <button className="formButton" type="reset">Reset</button>
@@ -80,4 +71,4 @@ const Login = ({actionCount, setActionCount}) => {
     )
 }
 
-export default Login
+export default ForgotPassword
