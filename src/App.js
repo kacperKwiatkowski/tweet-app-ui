@@ -24,6 +24,7 @@ function App() {
         }
     )
 
+    const CHANGE = 0;
 
     useEffect(() => {
         fetchLoggedUser()
