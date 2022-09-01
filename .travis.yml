@@ -17,7 +17,7 @@ deploy:
   env: Tweetappui-env
   bucket_name: elasticbeanstalk-eu-central-1-007555715517
   bucket_path: tweet-app-ui
-  #  on:
-  #    branch: master
+  on:
+    branch: master
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
