@@ -15,13 +15,13 @@
 ## Start the app
 #CMD [ "npm", "start" ]
 
-FROM node:16-alpine as builder
-WORKDIR '/app'
-COPY package.json .
-RUN npm install
-COPY . .
-RUN npm run build
+FROM node:16-alpine
 
-FROM ngnix
+WORKDIR '/app'
+
+COPY ./package.json ./
+RUN npm install
+COPY ./ ./
+
 EXPOSE 80
-COPY --from=builder /app/build /usr/share/ngnix/html
+CMD ["npm", "run", "start"]
