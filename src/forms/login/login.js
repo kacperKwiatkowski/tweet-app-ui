@@ -41,8 +41,7 @@ const Login = ({setCurrentPhase}) => {
                     localStorage.setItem("authorization", response.data.jwt);
                     localStorage.setItem('loggedUser', loginData.username);
                 }
-
-                setCurrentPhase(PHASES.AUTHENTICATED)
+                window.location.reload(false);
             }
         ).catch(error => {
                 setValidationReport(error.response.data)
