@@ -14,7 +14,7 @@ deploy:
   provider: elasticbeanstalk
   region: eu-central-1
   app: tweet-app-ui
-  env: Tweetappui-env-1
+  env: Tweetappui-env
   bucket_name: elasticbeanstalk-eu-central-1-007555715517
   bucket_path: tweet-app-ui
   on:
