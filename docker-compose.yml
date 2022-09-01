@@ -1,17 +1,9 @@
 version: '3.9'
 
-networks:
-  shared-net:
-    driver: bridge
-
 services:
-
   frontend-tweet:
-    image: frontend-tweet
-    container_name: frontend-tweet
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     ports:
       - "80:80"
-    restart: always
