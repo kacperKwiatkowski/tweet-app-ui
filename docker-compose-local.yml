@@ -1,17 +1,13 @@
 version: '3.9'
 
-networks:
-  shared-net:
-    driver: bridge
-
 services:
 
   frontend-tweet:
-    image: frontend-tweet
-    container_name: frontend-tweet
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile.local
     ports:
-      - "3000:3000"
-    restart: always
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+      - .:/app
