@@ -47,6 +47,7 @@ const NewTweet = ({loggedUserData}) => {
             }
         ).then(() => {
                 setSuccessReport("New tweet posted")
+                window.location.reload(false);
             }
         ).catch(error => {
                 setValidationReport(error.response.data)
@@ -89,9 +90,9 @@ const NewTweet = ({loggedUserData}) => {
                 </div>
                 <div className="newTweetFormWrapper">
                     <input className="newTweetInput title" type="" name="title" placeholder="Title"
-                           value={tweetToSave.username} onChange={event => handleChange(event)}/>
+                           value={tweetToSave.username} onChange={event => handleChange(event)} data-testid="new-tweet-title"/>
                     <input className="newTweetInput message" type="text" name="message" placeholder="Message"
-                           value={tweetToSave.password} onChange={event => handleChange(event)}/>
+                           value={tweetToSave.password} onChange={event => handleChange(event)} data-testid="new-tweet-message"/>
                 </div>
                 <div className="formButtonsWrapper">
                     <button className="formButton" type="reset">Reset</button>

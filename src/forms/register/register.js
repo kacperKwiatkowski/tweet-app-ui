@@ -89,21 +89,21 @@ const Register = () => {
             <form encType="multipart/form-data" onSubmit={event => handleRegisterSubmit(event)}>
                 <div className="formName">Register</div>
                 <input type="text" name="username" placeholder="Username" value={registerData.username}
-                       onChange={event => handleRegisterChange(event)}/>
+                       onChange={event => handleRegisterChange(event)} data-testid="username-register"/>
                 <input type="email" name="email" placeholder="Email" value={registerData.email}
-                       onChange={event => handleRegisterChange(event)}/>
+                       onChange={event => handleRegisterChange(event)} data-testid="email-register"/>
                 <input type="text" name="firstName" placeholder="First name" value={registerData.firstName}
-                       onChange={event => handleRegisterChange(event)}/>
+                       onChange={event => handleRegisterChange(event)} data-testid="firstName-register"/>
                 <input type="text" name="lastName" placeholder="Last name" value={registerData.lastName}
-                       onChange={event => handleRegisterChange(event)}/>
+                       onChange={event => handleRegisterChange(event)} data-testid="lastName-register"/>
                 <input type="text" name="contactNumber" placeholder="Contact number" value={registerData.contactNumber}
-                       onChange={event => handleRegisterChange(event)}/>
+                       onChange={event => handleRegisterChange(event)} data-testid="contactNumber-register"/>
                 <input type="file" name="file" placeholder="avatar" value={registerData.file}
-                       onChange={event => onFileChangeHandler(event)}/>
+                       onChange={event => onFileChangeHandler(event)} data-testid="avatar-register"/>
                 <input type="password" name="password" placeholder="Password" value={registerData.password}
-                       onChange={event => handleRegisterChange(event)}/>
+                       onChange={event => handleRegisterChange(event)} data-testid="password-register"/>
                 <input type="password" name="passwordConfirm" placeholder="Confirm password"
-                       value={registerData.passwordConfirm} onChange={event => handleRegisterChange(event)}/>
+                       value={registerData.passwordConfirm} onChange={event => handleRegisterChange(event)} data-testid="passwordConfirm-register"/>
                 <div className="formButtonsWrapper">
 
                     <button className="formButton" type="reset">Reset</button>

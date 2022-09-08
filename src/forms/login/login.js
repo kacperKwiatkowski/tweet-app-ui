@@ -65,13 +65,14 @@ const Login = ({setCurrentPhase}) => {
         <div>
             <form onSubmit={event => handleLoginSubmit(event)}>
                 <div className="formName">Login</div>
-                <input type="text" name="username" placeholder="Username" value={loginData.username}
-                       onChange={event => handleLoginChange(event)}/>
+                <input role="input" type="text" name="username" placeholder="Username" value={loginData.username}
+                       onChange={event => handleLoginChange(event)} data-testid="login-username"
+                />
                 <input type="password" name="password" placeholder="Password" value={loginData.password}
-                       onChange={event => handleLoginChange(event)}/>
+                       onChange={event => handleLoginChange(event)} data-testid="login-password"/>
                 <div className="formButtonsWrapper">
                     <button className="formButton" type="reset">Reset</button>
-                    <button className="formButton" type="submit" value="Submit">Submit</button>
+                    <button className="formButton" type="submit" value="Submit" data-testid="login-submit">Submit</button>
                 </div>
             </form>
             {generateExceptionMessage()}

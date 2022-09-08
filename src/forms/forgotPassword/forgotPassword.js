@@ -73,7 +73,7 @@ const ForgotPassword = () => {
             <form onSubmit={event => handleLoginSubmit(event)}>
                 <div className="formName">Forgot password</div>
                 <input type="text" name="username" placeholder="Username" value={forgotPasswordData.username}
-                       onChange={event => handleLoginChange(event)}/>
+                       onChange={event => handleLoginChange(event)} data-testid="forgot-password-username"/>
                 <div className="formButtonsWrapper">
                     <button className="formButton" type="reset">Reset</button>
                     <button className="formButton" type="submit" value="Submit">Submit</button>
