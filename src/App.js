@@ -2,6 +2,7 @@ import './App.scss';
 
 import Axios from "axios";
 import React, {useEffect, useState} from "react";
+import { connect } from 'react-redux'
 
 import Header from './components/header/header'
 import Banner from "./components/banner/banner";
@@ -24,8 +25,6 @@ function App() {
         }
     )
 
-    const CHANGE = 2;
-
     useEffect(() => {
         fetchLoggedUser()
     }, []);
@@ -36,7 +35,6 @@ function App() {
 
     useEffect(() => {
         provideComponents()
-
     }, [currentPhase])
 
     const fetchLoggedUser = () => {
@@ -44,7 +42,6 @@ function App() {
             .then(response => {
                     if (response.status === 200) {
                         setLoggedUserData(response.data)
-
                         setCurrentPhase(PHASES.AUTHENTICATED)
                     }
                 }
@@ -58,8 +55,8 @@ function App() {
     const fetchWallContent = () => {
         Axios.get("http://localhost:8080/api/v.1.0/tweets/all")
             .then(response => {
-
                     if (response.status === 200) {
+                        setWall(null)
                         setWall(response.data)
                     }
                 }
@@ -94,6 +91,8 @@ function App() {
         return <>
             <NewTweet
                 loggedUserData={loggedUserData}
+                actionCount={actionCount}
+                setActionCount={setActionCount}
             />
             <Wall
                 loggedUserData={loggedUserData}

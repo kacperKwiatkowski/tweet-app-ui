@@ -44,6 +44,7 @@ input {
   border-right: none;
   border-left: none;
   border-top: none;
+  border-bottom: #a6a6a6 2px solid;
 
   margin: 15px auto 15px auto;
 
@@ -62,6 +63,8 @@ input {
     color: #4D98F0;
     outline: none;
   }
+
+  
 }
 
 input::-webkit-input-placeholder {
@@ -85,8 +88,6 @@ input::-webkit-input-placeholder {
   font-weight: normal;
   font-size: small;
   text-align: right;
-  margin-right: 100px;
-  padding-right: 100px;
   font-family: 'Josefin Sans', sans-serif;
 
 }

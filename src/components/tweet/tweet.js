@@ -1,6 +1,6 @@
 import "./tweet-style.scss"
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
@@ -11,7 +11,21 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
 
     const [successReport, setSuccessReport] = useState(null)
     const [validationReport, setValidationReport] = useState(null)
-    const [editTweet, setEditTweet] = useState({title: tweet.title, message: tweet.message})
+    const [editTweet, setEditTweet] = useState(
+        {
+            title: tweet.title, 
+            message: tweet.message
+        }
+    )
+
+    useEffect(() => {
+        setEditTweet(
+            {
+                title: tweet.title, 
+                message: tweet.message
+            }
+        )
+    }, [tweet])
 
     const handleChange = (event) => {
         const value = event.target.value;

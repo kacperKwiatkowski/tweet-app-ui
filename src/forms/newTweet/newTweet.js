@@ -6,7 +6,7 @@ import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 import SuccessMessage from "../../components/messages/successMessage/successMessage";
 
-const NewTweet = ({loggedUserData}) => {
+const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
 
     const [date, setDate] = useState(new Date());
     const [successReport, setSuccessReport] = useState(null)
@@ -47,7 +47,8 @@ const NewTweet = ({loggedUserData}) => {
             }
         ).then(() => {
                 setSuccessReport("New tweet posted")
-                window.location.reload(false);
+                setActionCount(actionCount+1)
+               // window.location.reload(false);
             }
         ).catch(error => {
                 setValidationReport(error.response.data)

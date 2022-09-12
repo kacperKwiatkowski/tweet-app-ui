@@ -5,6 +5,8 @@ import "../../interceptors/authTokenProvider"
 
 const Wall = ({loggedUserData, wall, actionCount, setActionCount}) => {
 
+    
+
     function distributeThreads() {
         return (
             wall.threads.map((thread, index) => {

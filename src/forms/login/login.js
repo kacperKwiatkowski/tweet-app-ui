@@ -44,8 +44,11 @@ const Login = ({setCurrentPhase}) => {
                 window.location.reload(false);
             }
         ).catch(error => {
-                setValidationReport(error.response.data)
-                setCurrentPhase(PHASES.NOT_AUTHENTICATED)
+            console.log(error)
+                setValidationReport({validationFailureDetails: ["Wrong credentials"]})
+                // TODO: Fix spring security throwing error
+                // setValidationReport(error.response.data)
+               setCurrentPhase(PHASES.NOT_AUTHENTICATED)
             }
         )
     }
