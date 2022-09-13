@@ -13,3 +13,23 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
+    networks:
+      - nginx-network
+
+  nginx-tweet:
+    image: nginx-tweet
+    container_name: nginx-tweet
+    hostname: nginx-tweet
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend-tweet
+    networks:
+      - nginx-network
+  
+networks:
+  nginx-network:
+    driver: bridge

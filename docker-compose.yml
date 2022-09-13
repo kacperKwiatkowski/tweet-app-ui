@@ -15,7 +15,6 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - backend-tweet
       - frontend-tweet
     networks:
       - nginx-network
