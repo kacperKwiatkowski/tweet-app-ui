@@ -12,5 +12,19 @@ script:
 
 after_success:
   - docker build -t kacperkwiatkowski/frontend-tweet ./Dockerfile
+  - docker build -t kacperkwiatkowski/nginx-tweet ./nginx
   - echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push kacperkwiatkowski/frontend-tweet
+  - docker push kacperkwiatkowski/frontend-tweet/Dockerfile
+  - docker push kacperkwiatkowski/nginx-tweet
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-central-1
+  app: tweet-app
+  env: Tweetapp-env
+  bucket_name: elasticbeanstalk-eu-central-1-195077249767
+  bucket_path: tweet-app-bucket
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

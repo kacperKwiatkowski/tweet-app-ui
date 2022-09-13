@@ -2,10 +2,20 @@ version: '3.9'
 
 services:
   frontend-tweet:
-    image: frontend-tweet
+    image: kacperkwiatkowski/frontend-tweet
     container_name: frontend-tweet
-    build:
-      context: .
-      dockerfile: Dockerfile
+    hostname: frontend-tweet
+    networks:
+      - nginx-network
+
+  nginx-tweet:
+    image: kacperkwiatkowski/nginx-tweet
+    container_name: nginx-tweet
+    hostname: nginx-tweet
     ports:
       - "80:80"
+    depends_on:
+      - backend-tweet
+      - frontend-tweet
+    networks:
+      - nginx-network
