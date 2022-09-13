@@ -19,3 +19,7 @@ services:
       - frontend-tweet
     networks:
       - nginx-network
+  
+networks:
+  nginx-network:
+    driver: bridge
