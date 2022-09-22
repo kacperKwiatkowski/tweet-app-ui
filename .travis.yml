@@ -17,14 +17,14 @@ after_success:
   - docker push kacperkwiatkowski/frontend-tweet
   - docker push kacperkwiatkowski/nginx-tweet
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: eu-central-1
-#   app: tweet-app-ui-eb
-#   env: Tweetappuieb-env
-#   bucket_name: elasticbeanstalk-eu-central-1-195077249767
-#   bucket_path: tweet-app-bucket
-#   on:
-#     branch: master
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key: $AWS_SECRET_KEY
+deploy:
+  provider: elasticbeanstalk
+  region: eu-central-1
+  app: tweet-app-ui
+  env: Tweetappui-env
+  bucket_name: elasticbeanstalk-eu-central-1-195077249767
+  bucket_path: tweet-app-ui-bucket
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
