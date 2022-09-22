@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
+import Avatar from "../../components/avatar/avatar";
 
 const ReplyTweet = ({mainTweetId, threadId, loggedUserData, actionCount, setActionCount}) => {
 
@@ -73,8 +74,8 @@ const ReplyTweet = ({mainTweetId, threadId, loggedUserData, actionCount, setActi
     return (
         <>
             <form className="tweetReply" onSubmit={event => handleNewTweetSubmit(event)}>
-                <img className="tweetAvatar"
-                     src={"data:image/png;base64," + loggedUserData.avatar}></img>
+                
+            <Avatar userUsername={loggedUserData.username} />
                 <div className="tweetDetailsWrapper">
                     <div className="tweetUserDetails">
 

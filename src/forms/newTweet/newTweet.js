@@ -5,6 +5,7 @@ import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../../components/messages/exceptionMessage/exceptionMessage";
 import SuccessMessage from "../../components/messages/successMessage/successMessage";
+import Avatar from "../../components/avatar/avatar";
 
 const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
 
@@ -83,7 +84,7 @@ const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
             <form onSubmit={event => handleNewTweetSubmit(event)}>
                 <div className="newTweetUserDetails">Post a tweet</div>
                 <div className="newTweetUserDetails">
-                    <img className="newTweetAvatar" src={"data:image/png;base64," + loggedUserData.avatar}></img>
+                    <Avatar userUsername={loggedUserData.username} />
                     <div className="newTweetUserDetail">{loggedUserData.username}</div>
                     <div className="newTweetUserDetail">{loggedUserData.firstName} {loggedUserData.lastName}</div>
                     <div

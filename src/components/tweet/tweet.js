@@ -6,6 +6,7 @@ import Axios from "axios";
 import "../../interceptors/authTokenProvider"
 import ExceptionMessage from "../messages/exceptionMessage/exceptionMessage";
 import SuccessMessage from "../messages/successMessage/successMessage";
+import Avatar from "../avatar/avatar";
 
 const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
 
@@ -134,8 +135,7 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
     return (
         <>
             <div className="tweet">
-                <img className="tweetAvatar"
-                     src={"data:image/png;base64," + tweet.avatar}></img>
+                <Avatar userUsername={tweet.username} />
                 <div className="tweetDetailsWrapper">
                     <div className="tweetUserDetails">
 
