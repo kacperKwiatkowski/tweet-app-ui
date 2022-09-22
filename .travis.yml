@@ -14,7 +14,7 @@ after_success:
   - docker build -t kacperkwiatkowski/frontend-tweet ./Dockerfile
   - docker build -t kacperkwiatkowski/nginx-tweet ./nginx
   - echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push kacperkwiatkowski/frontend-tweet/Dockerfile
+  - docker push kacperkwiatkowski/frontend-tweet
   - docker push kacperkwiatkowski/nginx-tweet
 
 # deploy:
