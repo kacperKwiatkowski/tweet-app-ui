@@ -16,16 +16,6 @@ test('Header elements are present', async () => {
     expect(logOutLink).toBeInTheDocument()
 });
 
-// test('Spinner is initially present', async () => {
-//     await act(() => {
-//         render(<App/>)
-//     })
-//
-//     const spinner = screen.findByRole('Spinner')
-//
-//     expect(spinner).not.toBeNull()
-// });
-
 test('New tweet form is present', async () => {
     await act(() => {
         render(<App/>)
@@ -41,35 +31,9 @@ test('Fetched tweets are present', async () => {
         render(<App/>)
     })
 
-    const tweets = await screen.findAllByText('MockID')
+    const tweets = await screen.findAllByText('m0ck')
 
     expect(tweets).not.toBeNull()
     expect(tweets.length).toBe(2)
 });
 
-test('Failed fetching logged user will render login form', async () => {
-    server.resetHandlers(
-        rest.get("http://localhost:8080/api/v.1.0/tweets/logged", (req, res, ctx) => (
-                res(ctx.status(400))
-            )
-        ),
-
-        rest.get('http://localhost:8080/api/v.1.0/tweets/all', (req, res, ctx) => {
-            return res(
-                ctx.status(403))
-        }),
-    )
-
-    await act(() => {
-        render(<App/>)
-    })
-
-    await waitFor( async () => {
-        const loginForm = await screen.findByText("Login")
-        const registerForm = await screen.findByText("Register")
-        const forgotPasswordForm = await screen.findByText("Forgot password")
-        expect(loginForm).toBeInTheDocument()
-        expect(registerForm).toBeInTheDocument()
-        expect(forgotPasswordForm).toBeInTheDocument()
-    });
-});

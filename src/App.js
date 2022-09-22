@@ -60,10 +60,7 @@ function App() {
                         setWall(response.data)
                     }
                 }
-            ).catch(error => {
-                console.error(error)
-            }
-        )
+            )
     }
 
     function provideComponents() {
