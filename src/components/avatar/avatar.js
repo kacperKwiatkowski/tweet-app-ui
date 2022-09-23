@@ -21,7 +21,7 @@ const Avatar = ({userUsername}) => {
     
     useEffect(() => {
         fetchImage()}, 
-        []
+        [userUsername]
     )
 
     return(
