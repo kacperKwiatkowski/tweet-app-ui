@@ -52,7 +52,7 @@ const Register = () => {
         formData.append("password", registerData.password)
         formData.append("passwordConfirm", registerData.passwordConfirm)
 
-        Axios.post("http://localhost:8080/api/v.1.0/tweets/register", formData)
+        Axios.post(process.env.REACT_APP_API_END_POINT + "/register", formData)
             .then(response => {
                 if (response.status === 201) {
                     setSuccessReport(`User ${registerData.username} registered`)

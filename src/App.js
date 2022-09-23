@@ -2,7 +2,6 @@ import './App.scss';
 
 import Axios from "axios";
 import React, {useEffect, useState} from "react";
-import { connect } from 'react-redux'
 
 import Header from './components/header/header'
 import Banner from "./components/banner/banner";
@@ -38,7 +37,7 @@ function App() {
     }, [currentPhase])
 
     const fetchLoggedUser = () => {
-        Axios.get("http://localhost:8080/api/v.1.0/tweets/logged")
+        Axios.get(process.env.REACT_APP_API_END_POINT + "/logged")
             .then(response => {
                     if (response.status === 200) {
                         setLoggedUserData(response.data)
@@ -53,7 +52,7 @@ function App() {
     }
 
     const fetchWallContent = () => {
-        Axios.get("http://localhost:8080/api/v.1.0/tweets/all")
+        Axios.get(process.env.REACT_APP_API_END_POINT + "/all")
             .then(response => {
                     if (response.status === 200) {
                         setWall(null)

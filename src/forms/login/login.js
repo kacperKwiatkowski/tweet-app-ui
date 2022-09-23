@@ -31,7 +31,7 @@ const Login = ({setCurrentPhase}) => {
 
     const authorize = () => {
 
-        Axios.post("http://localhost:8080/api/v.1.0/tweets/login",
+        Axios.post(process.env.REACT_APP_API_END_POINT + "/login",
             {
                 username: loginData.username,
                 password: loginData.password
@@ -44,7 +44,6 @@ const Login = ({setCurrentPhase}) => {
                 window.location.reload(false);
             }
         ).catch(error => {
-            console.log(error)
                 setValidationReport({validationFailureDetails: ["Wrong credentials"]})
                 // TODO: Fix spring security throwing error
                 // setValidationReport(error.response.data)

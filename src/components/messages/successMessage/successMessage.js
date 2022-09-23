@@ -1,3 +1,5 @@
+import React, { Component }  from 'react';
+
 import "./successMessage-style.scss"
 
 const SuccessMessage = ({message, setMessage}) => {

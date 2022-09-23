@@ -1,5 +1,6 @@
 import "./wall-style.scss"
 
+import React, { Component }  from 'react';
 import Thread from "../thread/thread";
 import "../../interceptors/authTokenProvider"
 

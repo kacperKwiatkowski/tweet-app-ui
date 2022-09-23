@@ -41,7 +41,7 @@ const NewTweet = ({loggedUserData, actionCount, setActionCount}) => {
     };
 
     const postNewTweet = () => {
-        Axios.post(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/add`,
+        Axios.post(process.env.REACT_APP_API_END_POINT + `/${loggedUserData.username}/add`,
             {
                 title: tweetToSave.title,
                 message: tweetToSave.message

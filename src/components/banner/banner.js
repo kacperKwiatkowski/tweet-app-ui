@@ -1,5 +1,6 @@
 import './banner-style.scss'
 
+import React, { Component }  from 'react';
 import Login from "../../forms/login/login";
 import Register from "../../forms/register/register";
 import ForgotPassword from "../../forms/forgotPassword/forgotPassword";

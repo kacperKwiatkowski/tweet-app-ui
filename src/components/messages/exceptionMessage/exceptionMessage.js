@@ -1,5 +1,7 @@
 import "./exceptionMessage-style.scss"
 
+import React, { Component }  from 'react';
+
 const ExceptionMessage = ({message, setMessage}) => {
 
     const mapExceptions = () => {

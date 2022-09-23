@@ -33,7 +33,7 @@ const ReplyTweet = ({mainTweetId, threadId, loggedUserData, actionCount, setActi
     };
 
     const postReplyTweet = () => {
-        Axios.post(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/reply/${mainTweetId}`,
+        Axios.post(process.env.REACT_APP_API_END_POINT + `/${loggedUserData.username}/reply/${mainTweetId}`,
             {
                 title: replyTweet.title,
                 message: replyTweet.message,

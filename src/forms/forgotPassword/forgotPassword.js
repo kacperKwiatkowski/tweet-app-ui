@@ -31,7 +31,7 @@ const ForgotPassword = () => {
 
     const authorize = () => {
 
-        Axios.get(`http://localhost:8080/api/v.1.0/tweets/${forgotPasswordData.username}/forgot`,
+        Axios.get(process.env.REACT_APP_API_END_POINT + `/${forgotPasswordData.username}/forgot`,
             {
                 username: forgotPasswordData.username
             }

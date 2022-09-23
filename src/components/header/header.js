@@ -1,4 +1,6 @@
 import './header-style.scss';
+
+import React, { Component }  from 'react';
 import {PHASES} from "../../constants/phases";
 
 const Header = ({setCurrentPhase}) => {

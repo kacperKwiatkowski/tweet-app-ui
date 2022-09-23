@@ -1,5 +1,6 @@
 import "./thread-style.scss"
 
+import React, { Component }  from 'react';
 import Tweet from "../tweet/tweet"
 import ReplyTweet from "../../forms/replyTweet/replyTweet";
 

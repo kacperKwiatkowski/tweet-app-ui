@@ -9,7 +9,7 @@ const Avatar = ({userUsername}) => {
     const [imageState, setImageState] = useState()
 
     const fetchImage = () => {
-        Axios.get(`http://localhost:8080/api/v.1.0/tweets/images/${userUsername}`,)
+        Axios.get(process.env.REACT_APP_API_END_POINT + `/images/${userUsername}`,)
         .then(response => {
                 if (response.status === 200) {
                     setImageState(response.data)

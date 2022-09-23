@@ -37,7 +37,7 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
     };
 
     const handleLikeTweet = () => {
-        Axios.put(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/like/${tweet.tweetId}`,)
+        Axios.put(process.env.REACT_APP_API_END_POINT + `/${loggedUserData.username}/like/${tweet.tweetId}`,)
             .then(response => {
                     if (response.status === 200) {
                         setActionCount(++actionCount)
@@ -52,7 +52,7 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
     }
 
     const handleEditTweet = () => {
-        Axios.put(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/update/${tweet.tweetId}`, editTweet)
+        Axios.put(process.env.REACT_APP_API_END_POINT + `/${loggedUserData.username}/update/${tweet.tweetId}`, editTweet)
             .then(response => {
                     setActionCount(++actionCount)
                     setSuccessReport("Tweet edited")
@@ -67,7 +67,7 @@ const Tweet = ({tweet, loggedUserData, actionCount, setActionCount}) => {
     }
 
     const handleDeleteTweet = () => {
-        Axios.delete(`http://localhost:8080/api/v.1.0/tweets/${loggedUserData.username}/delete/${tweet.tweetId}`)
+        Axios.delete(process.env.REACT_APP_API_END_POINT + `/${loggedUserData.username}/delete/${tweet.tweetId}`)
             .then(() => {
                     setActionCount(++actionCount)
 
