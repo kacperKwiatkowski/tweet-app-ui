@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+server.keepAliveTimeout = 65000;
+server.headersTimeout = 80000;
+
 root.render(
   <React.StrictMode>
       <App />
